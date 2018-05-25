@@ -10,6 +10,22 @@
 
 int main(int argc, const char * argv[]) {
     const char * fileLocation = argv[1];
-    printf("Running with %s\n", fileLocation);
+    const char filePermission[2] = "r\0";
+    
+    // Try to open file
+    FILE *fp = fopen(fileLocation, filePermission);
+    if (fp == NULL)
+    {
+        printf("No file found for location %s and permission %s\n", fileLocation, filePermission);
+        return 1;
+    } else {
+        printf("File %s found\n", fileLocation);
+        int status = fclose(fp);
+        if (status != 0) {
+            printf("Failed to close file\n");
+            return 1;
+        }
+    }
+    
     return 0;
 }

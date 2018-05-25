@@ -65,7 +65,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "~/Desktop/stats.csv"
+            argument = "/Users/inoda/Desktop"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
