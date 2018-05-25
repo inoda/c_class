@@ -7,6 +7,7 @@
 //
 
 #include <stdio.h>
+#include <string.h>
 #include "player.h"
 
 int main(int argc, const char * argv[]) {
@@ -23,10 +24,17 @@ int main(int argc, const char * argv[]) {
 
     // Read lines
     int size = 1000;
-    char line[size];
-    printf("%s\n", fgets(line, size, fp));
-    while (fgets(line, size, fp) != NULL) {
-      printf("%s\n", line);
+    char row[size];
+    const char delimiter[2] = ",\0";
+
+    while (fgets(row, size, fp) != NULL) {
+      char *col;
+      char *rp = &row[0];
+      while((col = strsep(&rp, delimiter)) != NULL) {
+        printf("%s\n", col);
+      }
+      
+      printf("%s\n", row);
     }
   
     // Close file

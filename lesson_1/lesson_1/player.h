@@ -12,7 +12,7 @@
 struct player {
   char name[100];
   int base_on_balls;
-  int at_bat;
+  int at_bats;
   int strikeouts;
 };
 
