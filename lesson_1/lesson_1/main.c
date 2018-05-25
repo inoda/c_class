@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "player.h"
 
 int main(int argc, const char * argv[]) {
@@ -49,7 +50,14 @@ int main(int argc, const char * argv[]) {
         continue;
       }
       
-      printf("%s\n\n", cols[0]);
+      // Load data into struct
+      struct player p;
+      strcpy(p.name, cols[0]);
+      p.at_bats = atoi(cols[6]);
+      p.base_on_balls = atoi(cols[15]);
+      p.strikeouts = atoi(cols[16]);
+      printf("%s, %d, %.1f\n", p.name, epa(p), strikeout_percentage(p));
+      printf("\n");
     }
   
     // Close file
