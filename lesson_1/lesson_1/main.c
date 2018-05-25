@@ -26,15 +26,30 @@ int main(int argc, const char * argv[]) {
     int size = 1000;
     char row[size];
     const char delimiter[2] = ",\0";
+    const char *headerIndicator = "Name";
 
     while (fgets(row, size, fp) != NULL) {
       char *col;
-      char *rp = &row[0];
+      char *rp = row;
+      char cols[29][1000];
+
+      // Split row into columns
+      int index = 0;
       while((col = strsep(&rp, delimiter)) != NULL) {
-        printf("%s\n", col);
+        strcpy(cols[index], col);
+        index += 1;
       }
       
-      printf("%s\n", row);
+      // Skip header
+      int isHeader = 0;
+      if (strcmp(cols[0], headerIndicator) == 0) {
+        isHeader = 1;
+      }
+      if (isHeader == 1) {
+        continue;
+      }
+      
+      printf("%s\n\n", cols[0]);
     }
   
     // Close file
