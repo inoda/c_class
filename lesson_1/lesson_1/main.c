@@ -56,7 +56,7 @@ int main(int argc, const char * argv[]) {
       p.at_bats = atoi(cols[6]);
       p.base_on_balls = atoi(cols[15]);
       p.strikeouts = atoi(cols[16]);
-      printf("%s, %d, %.1f\n", p.name, epa(p), strikeout_percentage(p));
+      printf("%s, %d, %.1f%%\n", p.name, epa(p), strikeout_percentage(p));
       printf("\n");
     }
   
