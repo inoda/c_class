@@ -27,7 +27,7 @@ int main(int argc, const char * argv[]) {
     int size = 1000;
     char row[size];
     const char delimiter[2] = ",\0";
-    const char *headerIndicator = "Name";
+    const char *header_indicator = "Name";
 
     while (fgets(row, size, fp) != NULL) {
       char *col;
@@ -42,18 +42,18 @@ int main(int argc, const char * argv[]) {
       }
       
       // Skip header
-      int isHeader = 0;
-      if (strcmp(cols[0], headerIndicator) == 0) {
-        isHeader = 1;
+      int is_header = 0;
+      if (strcmp(cols[0], header_indicator) == 0) {
+        is_header = 1;
       }
-      if (isHeader == 1) {
+      if (is_header == 1) {
         continue;
       }
       
       // Normalize name
-      char *lastChar = &cols[0][(strlen(cols[0])-1)];
-      if (strcmp(lastChar, "*") == 0 || strcmp(lastChar, "#") == 0) {
-        *lastChar = '\0';
+      char *last_char = &cols[0][(strlen(cols[0])-1)];
+      if (strcmp(last_char, "*") == 0 || strcmp(last_char, "#") == 0) {
+        *last_char = '\0';
       }
 
       // Load data into struct
