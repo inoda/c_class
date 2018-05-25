@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
+    const char * fileLocation = argv[1];
+    printf("Running with %s\n", fileLocation);
     return 0;
 }
