@@ -20,6 +20,14 @@ int main(int argc, const char * argv[]) {
   } else {
     printf("File %s found\n", fileLocation);
 
+    // Read lines
+    int size = 1000;
+    char line[size];
+    printf("%s\n", fgets(line, size, fp));
+    while (fgets(line, size, fp) != NULL) {
+      printf("%s\n", line);
+    }
+  
     // Close file
     int status = fclose(fp);
     if (status != 0) {
