@@ -50,6 +50,12 @@ int main(int argc, const char * argv[]) {
         continue;
       }
       
+      // Normalize name
+      char *lastChar = &cols[0][(strlen(cols[0])-1)];
+      if (strcmp(lastChar, "*") == 0 || strcmp(lastChar, "#") == 0) {
+        *lastChar = '\0';
+      }
+
       // Load data into struct
       struct player p;
       strcpy(p.name, cols[0]);
