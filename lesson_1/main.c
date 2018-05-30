@@ -30,8 +30,14 @@ int main(int argc, const char * argv[]) {
     struct player p;
     while((col = strsep(&rp, ",")) != NULL) {
       switch(cols_index) {
-        case 0:
+        case 0: {
+          // Normalize name
+          char *last_char = &col[strlen(col)-1];
+          if (*last_char == '*' || *last_char == '#') {
+            *last_char = '\0';
+          }
           strcpy(p.name, col);
+        }
         case 6:
           p.at_bats = atoi(col);
         case 15:
@@ -42,12 +48,6 @@ int main(int argc, const char * argv[]) {
 
       cols_index += 1;
     }
-
-    // Normalize name
-    // char *last_char = &cols[0][(strlen(cols[0])-1)];
-    // if (last_char == "*" || last_char == "#") {
-    //   *last_char = '\0';
-    // }
 
     // Print stats
     printf("%s, %d, %.1f%%\n", p.name, epa(p), strikeout_percentage(p));
