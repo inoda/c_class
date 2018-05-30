@@ -1,16 +1,7 @@
-//
-//  main.c
-//  lesson_1
-//
-//  Created by Isaac Noda on 5/25/18.
-//  Copyright © 2018 Isaac Noda. All rights reserved.
-//
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "player.h"
-#include "player.c"
 
 int main(int argc, const char * argv[]) {
   const char * file_location = argv[1];
@@ -32,28 +23,31 @@ int main(int argc, const char * argv[]) {
     // Skip header
     if (row_count == 1) { continue; }
 
-    // Split row into columns
+    // Split row and load data into struct
     char *col;
     char *rp = row;
-    char cols[29][1000];
     int cols_index = 0;
+    struct player p;
     while((col = strsep(&rp, ",")) != NULL) {
-      strcpy(cols[cols_index], col);
+      switch(cols_index) {
+        case 0:
+          strcpy(p.name, col);
+        case 6:
+          p.at_bats = atoi(col);
+        case 15:
+          p.base_on_balls = atoi(col);
+        case 16:
+          p.strikeouts = atoi(col);
+      }
+
       cols_index += 1;
     }
 
     // Normalize name
-    char *last_char = &cols[0][(strlen(cols[0])-1)];
-    if (strcmp(last_char, "*") == 0 || strcmp(last_char, "#") == 0) {
-      *last_char = '\0';
-    }
-
-    // Load data into struct
-    struct player p;
-    strcpy(p.name, cols[0]);
-    p.at_bats = atoi(cols[6]);
-    p.base_on_balls = atoi(cols[15]);
-    p.strikeouts = atoi(cols[16]);
+    // char *last_char = &cols[0][(strlen(cols[0])-1)];
+    // if (last_char == "*" || last_char == "#") {
+    //   *last_char = '\0';
+    // }
 
     // Print stats
     printf("%s, %d, %.1f%%\n", p.name, epa(p), strikeout_percentage(p));
