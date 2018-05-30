@@ -1,3 +1,5 @@
+#include "player.h"
+
 int epa(struct player p) {
   return p.at_bats + p.base_on_balls;
 };
