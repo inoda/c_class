@@ -10,11 +10,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include "player.h"
+#include "player.c"
 
 int main(int argc, const char * argv[]) {
   const char * file_location = argv[1];
   const char mode[2] = "r";
-    
+
   // Try to open file
   FILE *fp = fopen(file_location, mode);
   if (fp == NULL) {
@@ -27,7 +28,7 @@ int main(int argc, const char * argv[]) {
   int row_count = 0;
   while (fgets(row, 1000, fp) != NULL) {
     row_count += 1;
-    
+
     // Skip header
     if (row_count == 1) { continue; }
 
@@ -40,7 +41,7 @@ int main(int argc, const char * argv[]) {
       strcpy(cols[cols_index], col);
       cols_index += 1;
     }
-    
+
     // Normalize name
     char *last_char = &cols[0][(strlen(cols[0])-1)];
     if (strcmp(last_char, "*") == 0 || strcmp(last_char, "#") == 0) {
