@@ -135,11 +135,11 @@ int main(int argc, const char * argv[]) {
   printf("Best home run rate: %s, %.1f%%\n", record_home_run_percentage_holder->name, record_home_run_rate);
   printf("Best average base rating: %s, %.1f%%\n", record_average_base_rating_holder->name, record_average_base_rating);
 
-
-  // TODO: Free memory
-
-
-
+  // Free up memory
+  for(i = 0; i < player_count; i += 1) {
+    free(players[i]);
+  }
+  free(players);
 
   // Close file
   int status = fclose(fp);
