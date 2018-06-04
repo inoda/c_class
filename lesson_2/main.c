@@ -82,16 +82,62 @@ int main(int argc, const char * argv[]) {
     struct player *p = malloc(sizeof(struct player));
     load_player_data(rp, p);
     players[row_count - 2] = p; // - 2 from row_count as the first player starts on row 2 (row 1 is the CSV header)
-
-    // free(p);
   }
 
-  int a;
+  // Determine record holders
+  struct player *record_strikeout_percentage_holder = NULL;
+  float record_strikeout_percentage = 100.0;
+
+  struct player *record_toughest_out_holder = NULL;
+  float record_toughest_out = 200.0;
+
+  struct player *record_home_run_percentage_holder = NULL;
+  float record_home_run_rate = 0.0;
+
+  struct player *record_average_base_rating_holder = NULL;
+  float record_average_base_rating = 0.0;
+
+  int i;
   int player_count = row_count - 1;
-  for(a = 0; a < player_count; a += 1) {
-    printf("%s\n", players[a]->name);
-    printf("%s\n", players[a]->positions);
+  for(i = 0; i < player_count; i += 1) {
+    struct player *pp = players[i];
+    struct player p = *pp;
+
+    float strikeout_rate = strikeout_percentage(p);
+    float toughest_out = strikeout_percentage(p) + home_run_percentage(p);
+    float home_run_rate = home_run_percentage(p);
+    float average_base_rating_rate = average_base_rating(p);
+
+    if (strikeout_rate < record_strikeout_percentage) {
+      record_strikeout_percentage = strikeout_rate;
+      record_strikeout_percentage_holder = pp;
+    }
+
+    if (toughest_out < record_toughest_out) {
+      record_toughest_out = toughest_out;
+      record_toughest_out_holder = pp;
+    }
+
+    if (home_run_rate > record_home_run_rate) {
+      record_home_run_rate = home_run_rate;
+      record_home_run_percentage_holder = pp;
+    }
+
+    if (average_base_rating_rate > record_average_base_rating) {
+      record_average_base_rating = average_base_rating_rate;
+      record_average_base_rating_holder = pp;
+    }
   }
+
+  printf("Best strikeout rate: %s, %f\n", record_strikeout_percentage_holder->name, 100.0);
+  // printf("Toughest out: %s\n", record_toughest_out_holder->name);
+  // printf("Best home run rate: %s\n", record_home_run_percentage_holder->name);
+  // printf("Best average base rating: %s\n", record_average_base_rating_holder->name);
+
+
+  // TODO: Free memory
+
+
 
 
   // Close file
