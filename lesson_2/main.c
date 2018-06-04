@@ -71,6 +71,8 @@ int main(int argc, const char * argv[]) {
 
     // Print stats
     printf("%s, %s, %d, %d, %d, %d, %d, %d, %d, %s\n", p->name, p->team, p->at_bats, p->hits, p->doubles, p->triples, p->home_runs, p->base_on_balls, p->strikeouts, p->positions);
+
+    free(p);
   }
 
   // Close file
