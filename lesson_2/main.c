@@ -115,7 +115,7 @@ int main(int argc, const char * argv[]) {
     struct player p = *pp;
 
     float strikeout_rate = strikeout_percentage(p);
-    float toughest_out = strikeout_percentage(p) + home_run_percentage(p);
+    float toughest_out = strikeout_percentage(p) + hit_out_percentage(p);
     float home_run_rate = home_run_percentage(p);
     float average_base_rating_rate = average_base_rating(p);
 
