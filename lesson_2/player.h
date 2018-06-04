@@ -4,7 +4,7 @@
 struct player {
   char name[50];
   char team[50];
-  char positions[1000];
+  char positions[50];
   int base_on_balls;
   int at_bats;
   int strikeouts;

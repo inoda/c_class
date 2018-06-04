@@ -74,7 +74,8 @@ int main(int argc, const char * argv[]) {
 
     // Reallocate bigger array size every 10 players after the first 10
     if (row_count % 10 == 1 && row_count > 10) {
-      players = realloc(players, sizeof(players) + (10 * player_pointer_size));
+      int new_size = player_pointer_size * (row_count + 10 - 1);
+      players = realloc(players, new_size);
     }
 
     // Load row into struct
@@ -129,10 +130,10 @@ int main(int argc, const char * argv[]) {
     }
   }
 
-  printf("Best strikeout rate: %s, %f\n", record_strikeout_percentage_holder->name, 100.0);
-  // printf("Toughest out: %s\n", record_toughest_out_holder->name);
-  // printf("Best home run rate: %s\n", record_home_run_percentage_holder->name);
-  // printf("Best average base rating: %s\n", record_average_base_rating_holder->name);
+  printf("Best strikeout rate: %s, %.1f%%\n", record_strikeout_percentage_holder->name, record_strikeout_percentage);
+  printf("Toughest out: %s, %.1f%%\n", record_toughest_out_holder->name, record_toughest_out);
+  printf("Best home run rate: %s, %.1f%%\n", record_home_run_percentage_holder->name, record_home_run_rate);
+  printf("Best average base rating: %s, %.1f%%\n", record_average_base_rating_holder->name, record_average_base_rating);
 
 
   // TODO: Free memory
