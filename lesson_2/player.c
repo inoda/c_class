@@ -33,5 +33,5 @@ float home_run_percentage(struct player p) {
 };
 
 float average_base_rating(struct player p) {
-  return walk_percentage(p) + single_percentage(p) + (2 * double_percentage(p)) + (4 * home_run_percentage(p));
+  return walk_percentage(p) + single_percentage(p) + (2 * double_percentage(p)) + (3 * triple_percentage(p)) + (4 * home_run_percentage(p));
 };
