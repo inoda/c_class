@@ -53,8 +53,9 @@ int main(int argc, const char * argv[]) {
       return 1;
   }
 
-  // Init data
-  // struct player **players = NULL;
+  // Init array of player pointers
+  const int player_pointer_size = sizeof(struct player *);
+  struct player **players = malloc(10 * player_pointer_size);
 
   // Read rows
   char row[1000];
@@ -66,20 +67,23 @@ int main(int argc, const char * argv[]) {
     if (row_count == 1) { continue; }
 
     // Reallocate bigger array size every 10 players
-    // if (row_count % 10 == 1) {
-    //   *players = realloc(*players, sizeof(*players) + (10 * sizeof(struct player *)));
-    // }
+    if (row_count % 10 == 1) {
+      players = realloc(players, sizeof(players) + (10 * player_pointer_size));
+    }
 
     // Load row into struct
     char *rp = row;
     struct player *p = malloc(sizeof(struct player));
     load_player_data(rp, p);
+    players[row_count - 1] = p;
 
     // Print stats
-    printf("%s, %s, %d, %d, %d, %d, %d, %d, %d, %s\n", p->name, p->team, p->at_bats, p->hits, p->doubles, p->triples, p->home_runs, p->base_on_balls, p->strikeouts, p->positions);
+    // printf("%s, %s, %d, %d, %d, %d, %d, %d, %d, %s\n", p->name, p->team, p->at_bats, p->hits, p->doubles, p->triples, p->home_runs, p->base_on_balls, p->strikeouts, p->positions);
 
-    free(p);
+    // free(p);
   }
+
+  // printf("%s", players[0]->name);
 
   // Close file
   int status = fclose(fp);
