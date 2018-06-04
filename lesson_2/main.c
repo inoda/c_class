@@ -75,15 +75,12 @@ int main(int argc, const char * argv[]) {
     char *rp = row;
     struct player *p = malloc(sizeof(struct player));
     load_player_data(rp, p);
-    players[row_count - 1] = p;
-
-    // Print stats
-    // printf("%s, %s, %d, %d, %d, %d, %d, %d, %d, %s\n", p->name, p->team, p->at_bats, p->hits, p->doubles, p->triples, p->home_runs, p->base_on_balls, p->strikeouts, p->positions);
+    players[row_count - 2] = p; // - 2 from row_count as the first player starts on row 2 (row 1 is the CSV header)
 
     // free(p);
   }
 
-  // printf("%s", players[0]->name);
+  printf("%d\n", *players[0]->name);
 
   // Close file
   int status = fclose(fp);
