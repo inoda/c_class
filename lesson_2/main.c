@@ -32,8 +32,14 @@ int load_player_data(char *row, struct player *p) {
         p->base_on_balls = atoi(col);
       case 16:
         p->strikeouts = atoi(col);
-      case 28:
+      case 28: {
+        // Normalize position
+        char *last_char = &col[strlen(col)-1];
+        if (*last_char == '\n') {
+          *last_char = '\0';
+        }
         strcpy(p->positions, col);
+      }
     }
 
     cols_index += 1;
