@@ -89,7 +89,8 @@ int main(int argc, const char * argv[]) {
   int a;
   int player_count = row_count - 1;
   for(a = 0; a < player_count; a += 1) {
-     printf("%s\n", players[a]->name);
+    printf("%s\n", players[a]->name);
+    printf("%s\n", players[a]->positions);
   }
 
 

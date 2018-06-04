@@ -2,9 +2,9 @@
 #define player_h
 
 struct player {
-  char name[500];
-  char team[100];
-  char positions[500];
+  char name[50];
+  char team[50];
+  char positions[1000];
   int base_on_balls;
   int at_bats;
   int strikeouts;
