@@ -15,23 +15,32 @@ int load_player_data(char *row, struct player *p) {
           *last_char = '\0';
         }
         strcpy(p->name, col);
+        break;
       }
       case 2:
         strcpy(p->team, col);
+        break;
       case 6:
         p->at_bats = atoi(col);
+        break;
       case 8:
         p->hits = atoi(col);
+        break;
       case 9:
         p->doubles = atoi(col);
+        break;
       case 10:
         p->triples = atoi(col);
+        break;
       case 11:
         p->home_runs = atoi(col);
+        break;
       case 15:
         p->base_on_balls = atoi(col);
+        break;
       case 16:
         p->strikeouts = atoi(col);
+        break;
       case 28: {
         // Normalize position
         char *last_char = &col[strlen(col)-1];
@@ -39,6 +48,7 @@ int load_player_data(char *row, struct player *p) {
           *last_char = '\0';
         }
         strcpy(p->positions, col);
+        break;
       }
     }
 
