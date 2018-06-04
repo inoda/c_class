@@ -38,19 +38,31 @@ int main(int argc, const char * argv[]) {
           }
           strcpy(p.name, col);
         }
+        case 2:
+          strcpy(p.team, col);
         case 6:
           p.at_bats = atoi(col);
+        case 8:
+          p.hits = atoi(col);
+        case 9:
+          p.doubles = atoi(col);
+        case 10:
+          p.triples = atoi(col);
+        case 11:
+          p.home_runs = atoi(col);
         case 15:
           p.base_on_balls = atoi(col);
         case 16:
           p.strikeouts = atoi(col);
+        case 28:
+          strcpy(p.positions, col);
       }
 
       cols_index += 1;
     }
 
     // Print stats
-    printf("%s, %d, %.1f%%\n", p.name, effective_plate_appearances(p), strikeout_percentage(p));
+    printf("%s, %s, %d, %d, %d, %d, %d, %d, %d, %s\n", p.name, p.team, p.at_bats, p.hits, p.doubles, p.triples, p.home_runs, p.base_on_balls, p.strikeouts, p.positions);
   }
 
   // Close file

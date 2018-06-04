@@ -11,7 +11,7 @@ struct player {
   int hits;
   int doubles;
   int triples;
-  int home_runes;
+  int home_runs;
 };
 
 int effective_plate_appearances(struct player);
