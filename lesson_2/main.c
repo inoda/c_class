@@ -143,7 +143,7 @@ int main(int argc, const char * argv[]) {
   printf("Best strikeout rate: %s, %.1f%%\n", record_strikeout_percentage_holder->name, record_strikeout_percentage);
   printf("Toughest out: %s, %.1f%%\n", record_toughest_out_holder->name, record_toughest_out);
   printf("Best home run rate: %s, %.1f%%\n", record_home_run_percentage_holder->name, record_home_run_rate);
-  printf("Best average base rating: %s, %.1f%%\n", record_average_base_rating_holder->name, record_average_base_rating);
+  printf("Best average base rating: %s, %.1f\n", record_average_base_rating_holder->name, record_average_base_rating);
 
   // Free up memory
   for(i = 0; i < player_count; i += 1) {
