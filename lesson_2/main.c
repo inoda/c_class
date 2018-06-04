@@ -66,8 +66,8 @@ int main(int argc, const char * argv[]) {
     // Skip header
     if (row_count == 1) { continue; }
 
-    // Reallocate bigger array size every 10 players
-    if (row_count % 10 == 1) {
+    // Reallocate bigger array size every 10 players after the first 10
+    if (row_count % 10 == 1 && row_count > 10) {
       players = realloc(players, sizeof(players) + (10 * player_pointer_size));
     }
 
@@ -80,7 +80,12 @@ int main(int argc, const char * argv[]) {
     // free(p);
   }
 
-  printf("%d\n", *players[0]->name);
+  int a;
+  int player_count = row_count - 1;
+  for(a = 0; a < player_count; a += 1) {
+     printf("%s\n", players[a]->name);
+  }
+
 
   // Close file
   int status = fclose(fp);
