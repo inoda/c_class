@@ -50,7 +50,7 @@ int main(int argc, const char * argv[]) {
     }
 
     // Print stats
-    printf("%s, %d, %.1f%%\n", p.name, epa(p), strikeout_percentage(p));
+    printf("%s, %d, %.1f%%\n", p.name, effective_plate_appearances(p), strikeout_percentage(p));
   }
 
   // Close file
