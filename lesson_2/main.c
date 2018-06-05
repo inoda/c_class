@@ -93,7 +93,7 @@ int main(int argc, const char * argv[]) {
     char *rp = row;
     struct player *p = malloc(sizeof(struct player));
     load_player_data(rp, p);
-    players[player_count - 1] = p;
+    players[player_count] = p;
     player_count += 1;
   }
 
@@ -110,7 +110,7 @@ int main(int argc, const char * argv[]) {
   struct player *record_average_base_rating_holder = NULL;
   float record_average_base_rating = 0.0;
 
-  for(int i = 0; i < player_count - 1; i++) {
+  for(int i = 0; i < player_count; i++) {
     struct player *pp = players[i];
 
     float strikeout_rate = strikeout_percentage(pp);
@@ -145,7 +145,7 @@ int main(int argc, const char * argv[]) {
   printf("Best average base rating: %s, %.1f\n", record_average_base_rating_holder->name, record_average_base_rating);
 
   // Free up memory
-  for(int i = 0; i < player_count - 1; i++) {
+  for(int i = 0; i < player_count; i++) {
     free(players[i]);
   }
   free(players);
