@@ -71,20 +71,21 @@ int main(int argc, const char * argv[]) {
 
   // Init array of player pointers
   const int player_pointer_size = sizeof(struct player *);
-  struct player **players = malloc(10 * player_pointer_size);
+  struct player **players;
 
   // Read rows
   char row[1000];
   int row_count = 0;
+  int player_count = 0;
   while (fgets(row, 1000, fp) != NULL) {
     row_count += 1;
 
     // Skip header
     if (row_count == 1) { continue; }
 
-    // Reallocate bigger array size every 10 players after the first 10
-    if (row_count % 10 == 1 && row_count > 10) {
-      int new_size = player_pointer_size * (row_count + 10 - 1);
+    // Reallocate bigger array size every 10 players
+    if (player_count % 10 == 0) {
+      int new_size = player_pointer_size * (player_count + 10);
       players = realloc(players, new_size);
     }
 
@@ -92,7 +93,8 @@ int main(int argc, const char * argv[]) {
     char *rp = row;
     struct player *p = malloc(sizeof(struct player));
     load_player_data(rp, p);
-    players[row_count - 2] = p; // - 2 from row_count as the first player starts on row 2 (row 1 is the CSV header)
+    players[player_count - 1] = p;
+    player_count += 1;
   }
 
   // Determine record holders
@@ -108,9 +110,7 @@ int main(int argc, const char * argv[]) {
   struct player *record_average_base_rating_holder = NULL;
   float record_average_base_rating = 0.0;
 
-  int i;
-  int player_count = row_count - 1;
-  for(i = 0; i < player_count; i += 1) {
+  for(int i = 0; i < player_count - 1; i++) {
     struct player *pp = players[i];
 
     float strikeout_rate = strikeout_percentage(pp);
@@ -145,7 +145,7 @@ int main(int argc, const char * argv[]) {
   printf("Best average base rating: %s, %.1f\n", record_average_base_rating_holder->name, record_average_base_rating);
 
   // Free up memory
-  for(i = 0; i < player_count; i += 1) {
+  for(int i = 0; i < player_count - 1; i++) {
     free(players[i]);
   }
   free(players);
