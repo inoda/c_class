@@ -112,12 +112,11 @@ int main(int argc, const char * argv[]) {
   int player_count = row_count - 1;
   for(i = 0; i < player_count; i += 1) {
     struct player *pp = players[i];
-    struct player p = *pp;
 
-    float strikeout_rate = strikeout_percentage(p);
-    float toughest_out = strikeout_percentage(p) + hit_out_percentage(p);
-    float home_run_rate = home_run_percentage(p);
-    float average_base_rating_rate = average_base_rating(p);
+    float strikeout_rate = strikeout_percentage(pp);
+    float toughest_out = strikeout_percentage(pp) + hit_out_percentage(pp);
+    float home_run_rate = home_run_percentage(pp);
+    float average_base_rating_rate = average_base_rating(pp);
 
     if (strikeout_rate < record_strikeout_percentage) {
       record_strikeout_percentage = strikeout_rate;

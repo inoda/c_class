@@ -14,14 +14,14 @@ struct player {
   int home_runs;
 };
 
-int effective_plate_appearances(struct player);
-float strikeout_percentage(struct player);
-float hit_out_percentage(struct player);
-float walk_percentage(struct player);
-float single_percentage(struct player);
-float double_percentage(struct player);
-float triple_percentage(struct player);
-float home_run_percentage(struct player);
-float average_base_rating(struct player);
+int effective_plate_appearances(struct player *);
+float strikeout_percentage(struct player *);
+float hit_out_percentage(struct player *);
+float walk_percentage(struct player *);
+float single_percentage(struct player *);
+float double_percentage(struct player *);
+float triple_percentage(struct player *);
+float home_run_percentage(struct player *);
+float average_base_rating(struct player *);
 
 #endif /* player_h */
