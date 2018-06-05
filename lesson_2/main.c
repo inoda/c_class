@@ -97,6 +97,13 @@ int main(int argc, const char * argv[]) {
     player_count += 1;
   }
 
+  // Close file
+  int status = fclose(fp);
+  if (status != 0) {
+    printf("Failed to close file\n");
+    return 1;
+  }
+
   // Determine record holders
   struct player *record_strikeout_percentage_holder = NULL;
   float record_strikeout_percentage = 100.0;
@@ -149,13 +156,6 @@ int main(int argc, const char * argv[]) {
     free(players[i]);
   }
   free(players);
-
-  // Close file
-  int status = fclose(fp);
-  if (status != 0) {
-    printf("Failed to close file\n");
-    return 1;
-  }
 
   return 0;
 }
