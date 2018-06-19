@@ -4,7 +4,7 @@
 #include "linked_list.h"
 
 struct team {
-  char name[50];
+  char name[5];
   struct linked_list *players;
 };
 

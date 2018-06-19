@@ -3,7 +3,7 @@
 
 struct player {
   char name[50];
-  char team[4];
+  char team[5];
   char positions[50];
   int base_on_balls;
   int at_bats;
