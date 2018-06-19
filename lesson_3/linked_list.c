@@ -21,16 +21,24 @@ int length(struct linked_list *lp) {
   return count;
 };
 
-int add_item(struct linked_list *list, void *item_data) {
-  struct linked_list_item *last = list->tail;
+int add_item(struct linked_list *lp, void *item_data) {
+  struct linked_list_item *last = lp->tail;
   struct linked_list_item *next = malloc(sizeof(struct linked_list_item));
   next->next_item = NULL;
   next->item_data = item_data;
   last->next_item = next;
-  list->tail = next;
+  lp->tail = next;
   return 0;
 };
 
-// TODO: implement
-// struct linked_list_item item next_item(struct linked_list *linked_list, struct linked_list_item *current_item);
-// int del(struct linked_list *linked_list);
+void * find(struct linked_list *lp, void *item_data_to_find) {
+  struct linked_list_item *i = lp->head;
+  while (i != NULL) {
+    void * dptr = i->item_data;
+    if (dptr == item_data_to_find) {
+      return dptr;
+    }
+    i = i->next_item;
+  }
+  return NULL;
+};

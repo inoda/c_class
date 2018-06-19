@@ -43,6 +43,8 @@ int main(int argc, const char * argv[]) {
     } else {
       add_item(l, p);
     }
+    struct player *sup = (struct player *)find(l, p);
+    printf("%s\n", sup->name);
     printf("%d\n", length(l));
   }
 

@@ -11,7 +11,6 @@ struct linked_list {
 struct linked_list * new_linked_list(void *first_item_data);
 int add_item(struct linked_list *linked_list, void *item_data);
 int length(struct linked_list *linked_list);
-int del(struct linked_list *linked_list);
-struct linked_list_item next_item(struct linked_list *linked_list, struct linked_list_item *current_item);
+void * find(struct linked_list *linked_list, void *item_data_to_find);
 
 #endif /* linked_list_h */
