@@ -5,7 +5,21 @@
 #include "team.h"
 #include "linked_list.h"
 
-struct team * find_or_init_team_by_name(struct linked_list *teams, char * name) {
+struct team * find_or_add_team_by_name(struct linked_list *teams, char * name) {
+  struct linked_list_item *i = teams->head;
+  struct team *t = NULL;
+  while (i != NULL) {
+    t = (struct team *)(i->item_data);
+    if (strcmp(name, t->name) == 1) {
+      return t;
+    }
+    i = i->next_item;
+  }
+  printf("%s\n", "New one");
+  t = malloc(sizeof(struct team));
+  strncpy(t->name, name, strlen(name));
+  add_item(teams, t);
+  return t;
 };
 
 int main(int argc, const char * argv[]) {
@@ -24,7 +38,6 @@ int main(int argc, const char * argv[]) {
   int row_count = 0;
   int player_count = 0;
   struct linked_list *teams = NULL;
-  // struct linked_list *l;
   while (fgets(row, 1000, fp) != NULL) {
     row_count += 1;
 
@@ -45,7 +58,7 @@ int main(int argc, const char * argv[]) {
       strncpy(t->name, team_name, strlen(team_name));
       teams = new_linked_list(t);
     } else {
-      t = find_or_init_team_by_name(teams, p->team);
+      t = find_or_add_team_by_name(teams, p->team);
     }
     printf("%s\n", t->name);
 
@@ -57,8 +70,8 @@ int main(int argc, const char * argv[]) {
     // }
     // struct player *sup = (struct player *)find(l, p);
     // printf("%s\n", sup->name);
-    // printf("%d\n", length(l));
   }
+  printf("%d\n", length(teams));
 
   // Close file
   int status = fclose(fp);
