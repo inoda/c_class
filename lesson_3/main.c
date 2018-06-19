@@ -78,6 +78,7 @@ int main(int argc, const char * argv[]) {
   char row[1000];
   int row_count = 0;
   int player_count = 0;
+  struct linked_list *l;
   while (fgets(row, 1000, fp) != NULL) {
     row_count += 1;
 
@@ -94,17 +95,19 @@ int main(int argc, const char * argv[]) {
     char *rp = row;
     struct player *p = malloc(sizeof(struct player));
     load_player_data(rp, p);
-
-
-    struct linked_list list = new_linked_list(p);
-    struct linked_list_item *li = list.head;
-    struct player *from_list = (struct player *)(li->item_data);
-    // printf("%s\n", from_list->name);
-    printf("%d\n", length(&list));
-
-
     players[player_count] = p;
     player_count += 1;
+
+    // struct linked_list_item *li = l.head;
+    // struct player *from_list = (struct player *)(li->item_data);
+    // printf("%s\n", from_list->name);
+
+    if (player_count == 1) {
+      l = new_linked_list(p);
+    } else {
+      add_item(l, p);
+    }
+    printf("%d\n", length(l));
   }
 
 
