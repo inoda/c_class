@@ -99,7 +99,8 @@ int main(int argc, const char * argv[]) {
     struct linked_list list = new_linked_list(p);
     struct linked_list_item *li = list.head;
     struct player *from_list = (struct player *)(li->item_data);
-    printf("%s\n", from_list->name);
+    // printf("%s\n", from_list->name);
+    printf("%d\n", length(&list));
 
 
     players[player_count] = p;
