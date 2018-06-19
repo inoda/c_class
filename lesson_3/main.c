@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "player.h"
+#include "linked_list.h"
 
 int load_player_data(char *row, struct player *p) {
   char *col;
@@ -96,6 +97,9 @@ int main(int argc, const char * argv[]) {
     players[player_count] = p;
     player_count += 1;
   }
+
+  struct linked_list x;
+  printf("%p\n", x.head);
 
   // Close file
   int status = fclose(fp);
