@@ -23,5 +23,6 @@ float double_percentage(struct player *);
 float triple_percentage(struct player *);
 float home_run_percentage(struct player *);
 float average_base_rating(struct player *);
+int load_data_from_row(char *row, struct player *p);
 
 #endif /* player_h */
