@@ -32,3 +32,4 @@ int add_item(struct linked_list *list, void *item_data) {
 };
 
 // struct linked_list_item item next_item(struct linked_list *linked_list, struct linked_list_item *current_item);
+// int del(struct linked_list *linked_list);

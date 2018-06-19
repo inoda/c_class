@@ -70,10 +70,6 @@ int main(int argc, const char * argv[]) {
       return 1;
   }
 
-  // Init array of player pointers
-  const int player_pointer_size = sizeof(struct player *);
-  struct player **players;
-
   // Read rows
   char row[1000];
   int row_count = 0;
@@ -85,17 +81,10 @@ int main(int argc, const char * argv[]) {
     // Skip header
     if (row_count == 1) { continue; }
 
-    // Reallocate bigger array size every 10 players
-    if (player_count % 10 == 0) {
-      int new_size = player_pointer_size * (player_count + 10);
-      players = realloc(players, new_size);
-    }
-
     // Load row into struct
     char *rp = row;
     struct player *p = malloc(sizeof(struct player));
     load_player_data(rp, p);
-    players[player_count] = p;
     player_count += 1;
 
     // struct linked_list_item *li = l.head;
@@ -119,10 +108,6 @@ int main(int argc, const char * argv[]) {
   }
 
   // TODO: Free up memory
-  // for(int i = 0; i < player_count; i++) {
-  //   free(players[i]);
-  // }
-  // free(players);
 
   return 0;
 }
