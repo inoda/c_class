@@ -1,4 +1,4 @@
 ### Running locally
 - Clone repo
 - Run `make`
-- Run `./main ./stats.csv`
+- Run `./main ../stats.csv`
