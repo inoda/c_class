@@ -94,12 +94,18 @@ int main(int argc, const char * argv[]) {
     char *rp = row;
     struct player *p = malloc(sizeof(struct player));
     load_player_data(rp, p);
+
+
+    struct linked_list list = new_linked_list(p);
+    struct linked_list_item *li = list.head;
+    struct player *from_list = (struct player *)(li->item_data);
+    printf("%s\n", from_list->name);
+
+
     players[player_count] = p;
     player_count += 1;
   }
 
-  struct linked_list x;
-  printf("%p\n", x.head);
 
   // Close file
   int status = fclose(fp);

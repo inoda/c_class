@@ -7,4 +7,7 @@ struct linked_list {
   struct linked_list_item *head;
 };
 
+struct linked_list new_linked_list(void *first_item_data);
+int add_item(struct linked_list *linked_list, void *item_data);
+
 #endif /* linked_list_h */
