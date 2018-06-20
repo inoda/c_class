@@ -6,7 +6,7 @@
 #include "linked_list.h"
 #include "string_helper.h"
 
-struct team * find_or_add_team_by_name(struct linked_list *teams, char * searched_name) {
+struct team * find_or_add_team_by_name(struct linked_list *teams, struct player *p, char * searched_name) {
   struct linked_list_item *i = teams->head;
   struct team *t = NULL;
 
@@ -14,6 +14,7 @@ struct team * find_or_add_team_by_name(struct linked_list *teams, char * searche
   while (i != NULL) {
     t = (struct team *)(i->item_data);
     if (strcmp(searched_name, t->name) == 0) {
+      add_item(t->players, p);
       return t;
     }
     i = i->next_item;
@@ -21,6 +22,7 @@ struct team * find_or_add_team_by_name(struct linked_list *teams, char * searche
 
   // Add new item if not found by this point
   t = malloc(sizeof(struct team));
+  t->players = new_linked_list(p);
   strncpy(t->name, searched_name, strlen(searched_name));
   add_item(teams, t);
   return t;
@@ -61,9 +63,10 @@ int main(int argc, const char * argv[]) {
     if (teams == NULL) {
       t = malloc(sizeof(struct team));
       strncpy(t->name, team_name, strlen(team_name));
+      t->players = new_linked_list(p);
       teams = new_linked_list(t);
     } else {
-      t = find_or_add_team_by_name(teams, team_name);
+      t = find_or_add_team_by_name(teams, p, team_name);
     }
 
     // TODO: Find or init players
@@ -81,6 +84,15 @@ int main(int argc, const char * argv[]) {
   while (i != NULL) {
     x = (struct team *)(i->item_data);
     printf("%s\n", x->name);
+
+    struct linked_list_item *i2 = x->players->head;
+    struct player *p = NULL;
+    while (i2 != NULL) {
+      p = (struct player *)(i2->item_data);
+      printf("%s\n", p->name);
+      i2 = i2->next_item;
+    }
+
     i = i->next_item;
   }
 
