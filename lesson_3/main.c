@@ -5,19 +5,22 @@
 #include "team.h"
 #include "linked_list.h"
 
-struct team * find_or_add_team_by_name(struct linked_list *teams, char * name) {
+struct team * find_or_add_team_by_name(struct linked_list *teams, char * searched_name) {
+  // printf("------ Entering func ------ \n");
   struct linked_list_item *i = teams->head;
   struct team *t = NULL;
+  // printf("Searched name length: %d, %s\n", strlen(searched_name), searched_name);
   while (i != NULL) {
     t = (struct team *)(i->item_data);
-    if (strcmp(name, t->name) == 1) {
+    // printf("%d, %s\n", strlen(t->name), t->name);
+    if (strcmp(searched_name, t->name) == 0) {
       return t;
     }
     i = i->next_item;
   }
-  printf("%s\n", "New one");
+  // printf("Creating new team \n\n");
   t = malloc(sizeof(struct team));
-  strncpy(t->name, name, strlen(name));
+  strcpy(t->name, searched_name);
   add_item(teams, t);
   return t;
 };
@@ -55,12 +58,11 @@ int main(int argc, const char * argv[]) {
     if (teams == NULL) {
       t = malloc(sizeof(struct team));
       char * team_name = p->team;
-      strncpy(t->name, team_name, strlen(team_name));
+      strcpy(t->name, team_name);
       teams = new_linked_list(t);
     } else {
       t = find_or_add_team_by_name(teams, p->team);
     }
-    printf("%s\n", t->name);
 
     // TODO: Find or init players
     // if (player_count == 1) {
