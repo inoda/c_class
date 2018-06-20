@@ -31,14 +31,5 @@ int add_item(struct linked_list *lp, void *item_data) {
   return 0;
 };
 
-void * find(struct linked_list *lp, void *item_data_to_find) {
-  struct linked_list_item *i = lp->head;
-  while (i != NULL) {
-    void * dptr = i->item_data;
-    if (dptr == item_data_to_find) {
-      return dptr;
-    }
-    i = i->next_item;
-  }
-  return NULL;
-};
+// TODO: IMPLEMENT swap
+// TODO: IMPLEMENT pop

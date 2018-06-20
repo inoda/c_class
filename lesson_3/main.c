@@ -5,38 +5,45 @@
 #include "team.h"
 #include "linked_list.h"
 #include "string_helper.h"
+#include "player_list.h"
 
 struct team * find_or_add_team_by_name(struct linked_list **teams_p, struct player *p) {
   char * team_name = p->team;
   trim_trailing_whitespace(team_name);
   struct linked_list *teams = *teams_p;
+  struct team *t = NULL;
 
   // Create team list and add first team if NULL
-  struct team *t = NULL;
   if (teams == NULL) {
     t = malloc(sizeof(struct team));
     strncpy(t->name, team_name, strlen(team_name));
     t->players = new_linked_list(p);
     *teams_p = new_linked_list(t);
-    return t;
   }
 
-  // Look for team in existing list and add player
-  struct linked_list_item *i = teams->head;
-  while (i != NULL) {
-    t = (struct team *)(i->item_data);
-    if (strcmp(team_name, t->name) == 0) {
-      add_item(t->players, p);
-      return t;
+  if (teams != NULL) {
+    // Look for team in existing list and add player
+    int found = 0;
+    struct linked_list_item *i = teams->head;
+    while (i != NULL && found != 1) {
+      t = (struct team *)(i->item_data);
+      if (strcmp(team_name, t->name) == 0) {
+        add_item(t->players, p);
+        found = 1;
+      }
+      i = i->next_item;
     }
-    i = i->next_item;
+
+    // Init and add new team if not found by this point
+    if (found != 1) {
+      t = malloc(sizeof(struct team));
+      t->players = new_linked_list(p);
+      strncpy(t->name, team_name, strlen(team_name));
+      add_item(teams, t);
+    }
   }
 
-  // Init and add new team if not found by this point
-  t = malloc(sizeof(struct team));
-  t->players = new_linked_list(p);
-  strncpy(t->name, team_name, strlen(team_name));
-  add_item(teams, t);
+  sort_by_abr_desc(t->players);
   return t;
 };
 
@@ -70,15 +77,6 @@ int main(int argc, const char * argv[]) {
 
     // Find/init team in teams list
     find_or_add_team_by_name(&teams, p);
-
-    // TODO: Find or init players
-    // if (player_count == 1) {
-    //   l = new_linked_list(p);
-    // } else {
-    //   add_item(l, p);
-    // }
-    // struct player *sup = (struct player *)find(l, p);
-    // printf("%s\n", sup->name);
   }
   printf("%d\n", length(teams));
   struct linked_list_item *i = teams->head;
@@ -91,7 +89,7 @@ int main(int argc, const char * argv[]) {
     struct player *p = NULL;
     while (i2 != NULL) {
       p = (struct player *)(i2->item_data);
-      printf("%s\n", p->name);
+      printf("%s, %f\n", p->name, average_base_rating(p));
       i2 = i2->next_item;
     }
 

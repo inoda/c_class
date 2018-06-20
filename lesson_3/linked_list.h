@@ -9,8 +9,7 @@ struct linked_list {
 };
 
 struct linked_list * new_linked_list(void *first_item_data);
-int add_item(struct linked_list *linked_list, void *item_data);
-int length(struct linked_list *linked_list);
-void * find(struct linked_list *linked_list, void *item_data_to_find);
+int add_item(struct linked_list *, void *item_data);
+int length(struct linked_list *);
 
 #endif /* linked_list_h */
