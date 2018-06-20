@@ -4,23 +4,24 @@
 #include "player.h"
 #include "team.h"
 #include "linked_list.h"
+#include "string_helper.h"
 
 struct team * find_or_add_team_by_name(struct linked_list *teams, char * searched_name) {
-  // printf("------ Entering func ------ \n");
   struct linked_list_item *i = teams->head;
   struct team *t = NULL;
-  // printf("Searched name length: %d, %s\n", strlen(searched_name), searched_name);
+
+  // Look for item in existing list
   while (i != NULL) {
     t = (struct team *)(i->item_data);
-    // printf("%d, %s\n", strlen(t->name), t->name);
     if (strcmp(searched_name, t->name) == 0) {
       return t;
     }
     i = i->next_item;
   }
-  // printf("Creating new team \n\n");
+
+  // Add new item if not found by this point
   t = malloc(sizeof(struct team));
-  strcpy(t->name, searched_name);
+  strncpy(t->name, searched_name, strlen(searched_name));
   add_item(teams, t);
   return t;
 };
@@ -55,13 +56,14 @@ int main(int argc, const char * argv[]) {
 
     // Find/init team in teams list
     struct team *t = NULL;
+    char * team_name = p->team;
+    trim_trailing_whitespace(team_name);
     if (teams == NULL) {
       t = malloc(sizeof(struct team));
-      char * team_name = p->team;
-      strcpy(t->name, team_name);
+      strncpy(t->name, team_name, strlen(team_name));
       teams = new_linked_list(t);
     } else {
-      t = find_or_add_team_by_name(teams, p->team);
+      t = find_or_add_team_by_name(teams, team_name);
     }
 
     // TODO: Find or init players
@@ -74,6 +76,13 @@ int main(int argc, const char * argv[]) {
     // printf("%s\n", sup->name);
   }
   printf("%d\n", length(teams));
+  struct linked_list_item *i = teams->head;
+  struct team *x = NULL;
+  while (i != NULL) {
+    x = (struct team *)(i->item_data);
+    printf("%s\n", x->name);
+    i = i->next_item;
+  }
 
   // Close file
   int status = fclose(fp);
