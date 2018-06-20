@@ -6,24 +6,36 @@
 #include "linked_list.h"
 #include "string_helper.h"
 
-struct team * find_or_add_team_by_name(struct linked_list *teams, struct player *p, char * searched_name) {
-  struct linked_list_item *i = teams->head;
-  struct team *t = NULL;
+struct team * find_or_add_team_by_name(struct linked_list **teams_p, struct player *p) {
+  char * team_name = p->team;
+  trim_trailing_whitespace(team_name);
+  struct linked_list *teams = *teams_p;
 
-  // Look for item in existing list
+  // Create team list and add first team if NULL
+  struct team *t = NULL;
+  if (teams == NULL) {
+    t = malloc(sizeof(struct team));
+    strncpy(t->name, team_name, strlen(team_name));
+    t->players = new_linked_list(p);
+    *teams_p = new_linked_list(t);
+    return t;
+  }
+
+  // Look for team in existing list and add player
+  struct linked_list_item *i = teams->head;
   while (i != NULL) {
     t = (struct team *)(i->item_data);
-    if (strcmp(searched_name, t->name) == 0) {
+    if (strcmp(team_name, t->name) == 0) {
       add_item(t->players, p);
       return t;
     }
     i = i->next_item;
   }
 
-  // Add new item if not found by this point
+  // Init and add new team if not found by this point
   t = malloc(sizeof(struct team));
   t->players = new_linked_list(p);
-  strncpy(t->name, searched_name, strlen(searched_name));
+  strncpy(t->name, team_name, strlen(team_name));
   add_item(teams, t);
   return t;
 };
@@ -57,17 +69,7 @@ int main(int argc, const char * argv[]) {
     player_count += 1;
 
     // Find/init team in teams list
-    struct team *t = NULL;
-    char * team_name = p->team;
-    trim_trailing_whitespace(team_name);
-    if (teams == NULL) {
-      t = malloc(sizeof(struct team));
-      strncpy(t->name, team_name, strlen(team_name));
-      t->players = new_linked_list(p);
-      teams = new_linked_list(t);
-    } else {
-      t = find_or_add_team_by_name(teams, p, team_name);
-    }
+    find_or_add_team_by_name(&teams, p);
 
     // TODO: Find or init players
     // if (player_count == 1) {
