@@ -44,3 +44,7 @@ int remove_front(struct linked_list *lp) {
   free(first);
   return 0;
 };
+
+int wipe(struct linked_list *lp) {
+  return 0;
+};

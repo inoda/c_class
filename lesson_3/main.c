@@ -50,13 +50,10 @@ struct team * find_or_add_team_by_name(struct linked_list **teams_p, struct play
 };
 
 int main(int argc, const char * argv[]) {
-  const char *file_location = argv[1];
-  const char mode[2] = "r";
-
   // Try to open file
-  FILE *fp = fopen(file_location, mode);
+  FILE *fp = fopen(argv[1], "r");
   if (fp == NULL) {
-      printf("No file found for location %s and mode %s\n", file_location, mode);
+      printf("No file found for location %s and mode %s\n", argv[1], "r");
       return 1;
   }
 
@@ -71,7 +68,7 @@ int main(int argc, const char * argv[]) {
     // Skip header
     if (row_count == 1) { continue; }
 
-    // Load row into struct
+    // Load row into player struct
     char *rp = row;
     struct player *p = malloc(sizeof(struct player));
     load_data_from_row(rp, p);
@@ -81,6 +78,14 @@ int main(int argc, const char * argv[]) {
     find_or_add_team_by_name(&teams, p);
   }
 
+  // Close file
+  int status = fclose(fp);
+  if (status != 0) {
+    printf("Failed to close file\n");
+    return 1;
+  }
+
+  // Calculate average ABR for each team
   struct linked_list_item *i = teams->head;
   struct team *t = NULL;
   while (i != NULL) {
@@ -89,6 +94,7 @@ int main(int argc, const char * argv[]) {
     i = i->next_item;
   }
 
+  // Sort teams then print team name and average ABR
   sort_teams_by_avg_abr_asc(teams);
   i = teams->head;
   t = NULL;
@@ -98,14 +104,8 @@ int main(int argc, const char * argv[]) {
     i = i->next_item;
   }
 
-  // Close file
-  int status = fclose(fp);
-  if (status != 0) {
-    printf("Failed to close file\n");
-    return 1;
-  }
-
-  // TODO: Free up memory
+  // Free memory
+  wipe(teams);
 
   return 0;
 }
