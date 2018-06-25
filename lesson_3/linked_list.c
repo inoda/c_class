@@ -31,7 +31,7 @@ int add_item(struct linked_list *lp, void *item_data) {
   return 0;
 };
 
-int pop_front(struct linked_list *lp) {
+int remove_front(struct linked_list *lp) {
   struct linked_list_item *first = lp->head;
   struct linked_list_item *last = lp->tail;
   struct linked_list_item *next = first->next_item;
@@ -41,5 +41,6 @@ int pop_front(struct linked_list *lp) {
     lp->tail = next;
   }
 
+  free(first);
   return 0;
 };

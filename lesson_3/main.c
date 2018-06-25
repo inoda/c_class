@@ -45,7 +45,7 @@ struct team * find_or_add_team_by_name(struct linked_list **teams_p, struct play
 
   sort_by_abr_asc(t->players);
   if (length(t->players) == 10) { // Only keep top 9
-    // pop_front(t->players);
+    remove_front(t->players);
   }
   return t;
 };
@@ -81,7 +81,7 @@ int main(int argc, const char * argv[]) {
     // Find/init team in teams list
     find_or_add_team_by_name(&teams, p);
   }
-  // printf("%d\n", length(teams));
+
   struct linked_list_item *i = teams->head;
   struct team *x = NULL;
   while (i != NULL) {
@@ -94,7 +94,6 @@ int main(int argc, const char * argv[]) {
       printf("%s, %f\n", p->name, average_base_rating(p));
       i2 = i2->next_item;
     }
-    printf("%d\n", length(x->players));
     i = i->next_item;
   }
 
