@@ -1,10 +1,9 @@
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include "team.h"
 #include "player.h"
-#include "player_list.h"
 
-int sort_by_abr_asc(struct linked_list *players) {
+int sort_players_by_abr_asc(struct team *t) {
+  struct linked_list *players = t->players;
   int sorted = 0;
 
   while (sorted != 1) {
@@ -45,3 +44,18 @@ int sort_by_abr_asc(struct linked_list *players) {
 
   return 0;
 };
+
+float calculate_average_abr(struct team *t) {
+  struct linked_list_item *i = t->players->head;
+  struct player *p = NULL;
+  float sum_abr = 0;
+  int num_players = length(t->players);
+  while (i != NULL) {
+    p = (struct player *)(i->item_data);
+    sum_abr += average_base_rating(p);
+    i = i->next_item;
+  }
+
+  t->average_abr = sum_abr / num_players;
+  return t->average_abr;
+}

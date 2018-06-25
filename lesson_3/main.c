@@ -2,10 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include "player.h"
-#include "team.h"
 #include "linked_list.h"
+#include "team.h"
 #include "string_helper.h"
-#include "player_list.h"
 
 struct team * find_or_add_team_by_name(struct linked_list **teams_p, struct player *p) {
   char * team_name = p->team;
@@ -43,7 +42,7 @@ struct team * find_or_add_team_by_name(struct linked_list **teams_p, struct play
     }
   }
 
-  sort_by_abr_asc(t->players);
+  sort_players_by_abr_asc(t);
   if (length(t->players) == 10) { // Only keep top 9
     remove_front(t->players);
   }
@@ -83,17 +82,11 @@ int main(int argc, const char * argv[]) {
   }
 
   struct linked_list_item *i = teams->head;
-  struct team *x = NULL;
+  struct team *t = NULL;
   while (i != NULL) {
-    x = (struct team *)(i->item_data);
-    printf("%s\n", x->name);
-    struct linked_list_item *i2 = x->players->head;
-    struct player *p = NULL;
-    while (i2 != NULL) {
-      p = (struct player *)(i2->item_data);
-      printf("%s, %f\n", p->name, average_base_rating(p));
-      i2 = i2->next_item;
-    }
+    t = (struct team *)(i->item_data);
+    calculate_average_abr(t);
+    printf("%s: %f\n", t->name, t->average_abr);
     i = i->next_item;
   }
 
