@@ -18,7 +18,7 @@ int sort_by_abr_asc(struct linked_list *players) {
       next_p = (struct player *)(next->item_data);
 
       // TODO: FIX SORTING MORE
-      if (average_base_rating(current_p) > average_base_rating(next_p)) {
+      if (average_base_rating(current_p) < average_base_rating(next_p)) {
         if (players->head == current) {
           players->head = next;
         } else {

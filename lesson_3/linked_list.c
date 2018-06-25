@@ -32,5 +32,14 @@ int add_item(struct linked_list *lp, void *item_data) {
 };
 
 int pop_front(struct linked_list *lp) {
+  struct linked_list_item *first = lp->head;
+  struct linked_list_item *last = lp->tail;
+  struct linked_list_item *next = first->next_item;
+
+  lp->head = next;
+  if (first == last) {
+    lp->tail = next;
+  }
+
   return 0;
 };
