@@ -86,6 +86,14 @@ int main(int argc, const char * argv[]) {
   while (i != NULL) {
     t = (struct team *)(i->item_data);
     calculate_average_abr(t);
+    i = i->next_item;
+  }
+
+  sort_teams_by_avg_abr_asc(teams);
+  i = teams->head;
+  t = NULL;
+  while (i != NULL) {
+    t = (struct team *)(i->item_data);
     printf("%s: %f\n", t->name, t->average_abr);
     i = i->next_item;
   }

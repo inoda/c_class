@@ -5,7 +5,6 @@
 int sort_players_by_abr_asc(struct team *t) {
   struct linked_list *players = t->players;
   int sorted = 0;
-
   while (sorted != 1) {
     struct linked_list_item *previous = NULL;
     struct linked_list_item *current = players->head;
@@ -30,6 +29,47 @@ int sort_players_by_abr_asc(struct team *t) {
 
           if (players->tail == next) {
             players->tail = current;
+          }
+
+          current->next_item = next->next_item;
+          next->next_item = current;
+        }
+      }
+
+      previous = current;
+      current = next;
+    }
+  }
+
+  return 0;
+};
+
+int sort_teams_by_avg_abr_asc(struct linked_list *teams) {
+  int sorted = 0;
+  while (sorted != 1) {
+    struct linked_list_item *previous = NULL;
+    struct linked_list_item *current = teams->head;
+    struct linked_list_item *next = NULL;
+    struct team *current_t = NULL;
+    struct team *next_t = NULL;
+    sorted = 1;
+
+    while (current != NULL) {
+      current_t = (struct team *)(current->item_data);
+      next = current->next_item;
+      if (next != NULL) {
+        next_t = (struct team *)(next->item_data);
+
+        if (current_t->average_abr > next_t->average_abr) {
+          sorted = 0;
+          if (teams->head == current) {
+            teams->head = next;
+          } else {
+            previous->next_item = next;
+          }
+
+          if (teams->tail == next) {
+            teams->tail = current;
           }
 
           current->next_item = next->next_item;
