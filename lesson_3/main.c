@@ -43,7 +43,10 @@ struct team * find_or_add_team_by_name(struct linked_list **teams_p, struct play
     }
   }
 
-  sort_by_abr_desc(t->players);
+  sort_by_abr_asc(t->players);
+  if (length(t->players) == 10) { // Only keep top 9
+    pop_front(t->players);
+  }
   return t;
 };
 

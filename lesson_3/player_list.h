@@ -3,6 +3,6 @@
 
 #include "linked_list.h"
 
-int sort_by_abr_desc(struct linked_list *);
+int sort_by_abr_asc(struct linked_list *);
 
 #endif /* player_list_h */

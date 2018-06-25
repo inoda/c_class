@@ -30,3 +30,7 @@ int add_item(struct linked_list *lp, void *item_data) {
   lp->tail = next;
   return 0;
 };
+
+int pop_front(struct linked_list *lp) {
+  return 0;
+};
