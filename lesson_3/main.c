@@ -78,13 +78,12 @@ int main(int argc, const char * argv[]) {
     // Find/init team in teams list
     find_or_add_team_by_name(&teams, p);
   }
-  printf("%d\n", length(teams));
+  // printf("%d\n", length(teams));
   struct linked_list_item *i = teams->head;
   struct team *x = NULL;
   while (i != NULL) {
     x = (struct team *)(i->item_data);
     printf("%s\n", x->name);
-
     struct linked_list_item *i2 = x->players->head;
     struct player *p = NULL;
     while (i2 != NULL) {
@@ -92,7 +91,7 @@ int main(int argc, const char * argv[]) {
       printf("%s, %f\n", p->name, average_base_rating(p));
       i2 = i2->next_item;
     }
-
+    printf("%d\n", length(x->players));
     i = i->next_item;
   }
 

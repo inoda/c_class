@@ -30,6 +30,3 @@ int add_item(struct linked_list *lp, void *item_data) {
   lp->tail = next;
   return 0;
 };
-
-// TODO: IMPLEMENT swap
-// TODO: IMPLEMENT pop
