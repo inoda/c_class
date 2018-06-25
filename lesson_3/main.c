@@ -105,7 +105,7 @@ int main(int argc, const char * argv[]) {
   }
 
   // Free memory
-  wipe(teams);
+  wipe_teams(teams);
 
   return 0;
 }

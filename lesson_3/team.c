@@ -99,3 +99,23 @@ float calculate_average_abr(struct team *t) {
   t->average_abr = sum_abr / num_players;
   return t->average_abr;
 }
+
+int wipe_teams(struct linked_list *teams) {
+  struct linked_list_item *t_item = teams->head;
+  while (t_item != NULL) {
+    struct team *t = (struct team *)(t_item->item_data);
+    struct linked_list_item *p_item = t->players->head;
+    while (p_item != NULL) {
+      struct player *p = (struct player *)(p_item->item_data);
+      free(p);
+      free(p_item);
+      p_item = p_item->next_item;
+    }
+
+    // Free team struct and team list node
+    free(t);
+    free(t_item);
+    t_item = t_item->next_item;
+  }
+  return 0;
+};
